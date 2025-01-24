@@ -2,15 +2,18 @@ export class RendererContext {
   private _device: GPUDevice;
   private _context: GPUCanvasContext;
   private _textureCacheFolder: FileSystemDirectoryHandle;
+  private _canvas: HTMLCanvasElement;
 
   constructor(
     device: GPUDevice,
     context: GPUCanvasContext,
-    textureCacheFolder: FileSystemDirectoryHandle
+    textureCacheFolder: FileSystemDirectoryHandle,
+    canvas: HTMLCanvasElement
   ) {
     this._device = device;
     this._context = context;
     this._textureCacheFolder = textureCacheFolder;
+    this._canvas = canvas;
   }
 
   get device() {
@@ -23,6 +26,10 @@ export class RendererContext {
 
   get textureCacheFolder() {
     return this._textureCacheFolder;
+  }
+
+  get canvas() {
+    return this._canvas;
   }
 }
 
@@ -60,5 +67,5 @@ export async function initContext(canvas: HTMLCanvasElement) {
     format: canvasFormat,
   });
 
-  return new RendererContext(device, context, textureCacheFolder);
+  return new RendererContext(device, context, textureCacheFolder, canvas);
 }
